@@ -10,8 +10,109 @@
 // stack, so that, from the point of view of the callee, the
 // result is at the top of the stack.
 //
-function Sys.xor 0
-    // Your implementation goes here.
+// Sys.xor function
+function Sys.xor 2
+    @SP
+    AM=M-1
+    D=M
+    @R13
+    M=D  
+
+    @SP
+    AM=M-1
+    D=M
+    @R14
+    M=D  
+
+    @R14
+    D=!M
+    @R15
+    M=D  
+    @R13
+    D=M
+    @R15
+    D=D&M
+    @temp1
+    M=D  
+
+    @R13
+    D=!M
+    @R16
+    M=D  
+    @R14
+    D=M
+    @R16
+    D=D&M
+    @temp2
+    M=D  
+
+
+    @temp1
+    D=M
+    @temp2
+    D=D|M
+
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+
+    @LCL
+    D=M
+    @R13
+    M=D 
+
+    @5
+    A=D-A
+    D=M
+    @R14
+    M=D  
+
+    @ARG
+    D=M
+    @SP
+    M=D+1  
+
+    @R13
+    D=M
+    @1
+    D=D-A
+    A=D
+    D=M
+    @THAT
+    M=D 
+
+    @R13
+    D=M
+    @2
+    D=D-A
+    A=D
+    D=M
+    @THIS
+    M=D  
+
+    @R13
+    D=M
+    @3
+    D=D-A
+    A=D
+    D=M
+    @ARG
+    M=D 
+
+    @R13
+    D=M
+    @4
+    D=D-A
+    A=D
+    D=M
+    @LCL
+    M=D 
+
+    @R14
+    A=M
+    0;JMP 
     return
 
 
@@ -27,8 +128,110 @@ function Sys.xor 0
 // stack, so that, from the point of view of the callee, the
 // result is at the top of the stack.
 //
+// Sys.shiftLeft function
 function Sys.shiftLeft 2
-    // Your implementation goes here.
+    @SP
+    AM=M-1
+    D=M
+    @y
+    M=D
+
+    @SP
+    AM=M-1
+    D=M
+    @x
+    M=D
+
+    @x
+    D=M
+    @result
+    M=D
+
+    @0
+    D=A
+    @counter
+    M=D
+
+(SHIFT_LOOP)
+    @counter
+    D=M
+    @y
+    D=D-M
+    @END_SHIFT
+    D;JGE  
+
+    @result
+    M=M+M
+
+    @counter
+    M=M+1
+    @SHIFT_LOOP
+    0;JMP
+
+(END_SHIFT)
+    @result
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+
+    @LCL
+    D=M
+    @R13
+    M=D  
+
+    @5
+    A=D-A
+    D=M
+    @R14
+    M=D 
+
+    @ARG
+    D=M
+    @SP
+    M=D+1 
+
+    @R13
+    D=M
+    @1
+    D=D-A
+    A=D
+    D=M
+    @THAT
+    M=D 
+
+    @R13
+    D=M
+    @2
+    D=D-A
+    A=D
+    D=M
+    @THIS
+    M=D 
+
+    @R13
+    D=M
+    @3
+    D=D-A
+    A=D
+    D=M
+    @ARG
+    M=D  
+
+    @R13
+    D=M
+    @4
+    D=D-A
+    A=D
+    D=M
+    @LCL
+    M=D 
+
+    @R14
+    A=M
+    0;JMP 
     return
 
 
@@ -57,7 +260,128 @@ function Sys.shiftLeft 2
 // result is at the top of the stack.
 //
 function Sys.computeParity 2
-    // Your implementation goes here.
+// Sys.computeParity function
+    @0
+    D=A
+    @parityBit
+    M=D
+
+    @0
+    D=A
+    @i
+    M=D
+(LOOP)
+    @i
+    D=M
+    @15
+    D=D-A
+    @END_LOOP
+    D;JGE  
+
+    @i
+    D=M
+    @bitmask
+    M=1
+    @SHIFT_LEFT_LOOP
+    0;JMP
+(SHIFT_LEFT_LOOP)
+    @bitmask
+    D=M
+    @i
+    D=D<<M
+    @bitmask
+    M=D
+    @CHECK_BIT
+    0;JMP
+(CHECK_BIT)
+    @SP
+    A=M-1
+    D=M
+    @inputValue
+    M=D
+
+    @bitmask
+    D=M
+    @inputValue
+    D=D&M
+    @UPDATE_PARITY
+    D;JNE  
+    @INCREMENT_I
+    0;JMP
+(UPDATE_PARITY)
+    @parityBit
+    M=!M
+    @INCREMENT_I
+    0;JMP
+(INCREMENT_I)
+    @i
+    M=M+1
+    @LOOP
+    0;JMP
+(END_LOOP)
+    @parityBit
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+
+    @LCL
+    D=M
+    @R13
+    M=D  
+
+    @5
+    A=D-A
+    D=M
+    @R14
+    M=D  
+
+    @ARG
+    D=M
+    @SP
+    M=D+1  
+
+    @R13
+    D=M
+    @1
+    D=D-A
+    A=D
+    D=M
+    @THAT
+    M=D  
+
+    @R13
+    D=M
+    @2
+    D=D-A
+    A=D
+    D=M
+    @THIS
+    M=D  
+
+    @R13
+    D=M
+    @3
+    D=D-A
+    A=D
+    D=M
+    @ARG
+    M=D 
+
+    @R13
+    D=M
+    @4
+    D=D-A
+    A=D
+    D=M
+    @LCL
+    M=D  
+
+    @R14
+    A=M
+    0;JMP  
     return
 
 
@@ -83,7 +407,74 @@ function Sys.computeParity 2
 // result is at the top of the stack.
 //
 function Sys.encode 0
-    // Your implementation goes here.
+// Sys.encode function
+    @SP
+    AM=M-1
+    D=M
+    @inputValue
+    M=D
+
+    @5
+    A=D-A
+    D=M
+    @returnAddress
+    M=D
+
+    @inputValue
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+    @Sys.computeParity
+    0;JMP
+(RETURN_FROM_COMPUTE_PARITY)
+    @SP
+    AM=M-1
+    D=M
+    @parityBit
+    M=D
+
+    @parityBit
+    D=M
+    @SET_MOST_SIGNIFICANT_BIT
+    D;JEQ  
+    @PUSH_RESULT
+    0;JMP
+(SET_MOST_SIGNIFICANT_BIT)
+    @inputValue
+    D=M
+    @bitmask
+    M=1
+    @15
+    D=A
+(SHIFT_LEFT_FOR_MASK)
+    @bitmask
+    D=M
+    D=D<<1
+    @bitmask
+    M=D
+    @14
+    D=D-A
+    @SHIFT_LEFT_FOR_MASK
+    D;JGT
+    @inputValue
+    D=D|bitmask
+    @PUSH_RESULT
+    0;JMP
+(PUSH_RESULT)
+    @inputValue
+    D=M
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+
+    @returnAddress
+    A=M
+    0;JMP
     return
 
 
