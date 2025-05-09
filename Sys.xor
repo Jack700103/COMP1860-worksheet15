@@ -1,0 +1,85 @@
+// Sys.xor function
+function Sys.xor 2
+    @SP
+    AM=M-1
+    D=M
+    @R13
+    M=D 
+
+    @SP
+    AM=M-1
+    D=M
+    @R14
+    M=D 
+
+    @R13
+    D=M
+    @R14
+    D=D^M
+
+    @SP
+    A=M
+    M=D
+    @SP
+    M=M+1
+
+    @LCL
+    D=M
+    @R13
+    M=D 
+
+    @5
+    A=D-A
+    D=M
+    @R14
+    M=D 
+
+    @ARG
+    D=M
+    @SP
+    M=D+1 
+
+    @R13
+    D=M
+    @1
+    D=D-A
+    A=D
+    D=M
+    @THAT
+    M=D 
+
+    @R13
+    D=M
+    @2
+    D=D-A
+    A=D
+    D=M
+    @THIS
+    M=D 
+
+    @R13
+    D=M
+    @3
+    D=D-A
+    A=D
+    D=M
+    @ARG
+    M=D 
+
+    @R13
+    D=M
+    @4
+    D=D-A
+    A=D
+    D=M
+    @LCL
+    M=D
+
+    @R14
+    A=M
+0;JMP  
+
+function Sys.init 0
+    push constant 12
+    push constant 6
+call Sys.xor 2
